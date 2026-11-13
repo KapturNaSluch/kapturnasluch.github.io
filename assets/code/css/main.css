@@ -192,9 +192,6 @@ nav {
 	align-items: center;
 }
 
-/* Hide the toggle icon while its first SVG fetch resolves, so the
-   shortcode text or a stale character can't flash before the real
-   icon appears. */
 .toggle-icon.is-loading {
 	visibility: hidden;
 }

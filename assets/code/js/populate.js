@@ -1,8 +1,8 @@
-// Resources page
+// Resources + About page builder
 /* global TRANSLATIONS, currentLang, currentScope, translate */
 
-// Safe access to the active translation table - never indexes with a
-// user-controlled string; picks between the two known language keys.
+// Translation table access
+
 function getTranslationTable() {
 	const source = (typeof TRANSLATIONS !== "undefined" && TRANSLATIONS) || null;
 	if (!source) {
@@ -14,38 +14,114 @@ function getTranslationTable() {
 	return picked || source.en || {};
 }
 
-function resourceSectionIndices() {
+// Generic index helpers (used by both Resources and About pages)
+
+// Collects unique numeric indices found under `prefix` + `<n>` + `suffix`.
+function collectIndices(prefix, suffix, filterSection) {
 	const table = getTranslationTable();
 	const idxs = new Set();
+	const re = new RegExp(`^${prefix}(\\d+)${suffix}$`);
 
 	for (const key of Object.keys(table)) {
-		const m = key.match(/^rsrc_(\d+)_name$/);
-		if (m) {
-			idxs.add(Number(m[1]));
+		const m = key.match(re);
+		if (!m) {
+			continue;
 		}
+		const sectionNum = Number(m[1]);
+		const cardNum = m[2] !== undefined ? Number(m[2]) : undefined;
+
+		// When filterSection is given, keep only matches for that section.
+		if (filterSection !== undefined && Number(m[2]) !== filterSection) {
+			continue;
+		}
+
+		idxs.add(cardNum !== undefined ? cardNum : sectionNum);
 	}
 
 	return [...idxs].sort((a, b) => a - b);
+}
+
+function resourceSectionIndices() {
+	return collectIndices("rsrc_", "_name");
 }
 
 function resourceCardIndices(sectionIdx) {
-	const table = getTranslationTable();
-	const idxs = new Set();
-	const target = Number(sectionIdx);
+	return collectIndices("rsrc_", "_(\\d+)_title", Number(sectionIdx));
+}
 
-	if (!Number.isFinite(target)) {
-		return [];
-	}
+function categoryIndices() {
+	return collectIndices("qa_", "_name");
+}
 
-	for (const key of Object.keys(table)) {
-		const m = key.match(/^rsrc_(\d+)_(\d+)_title$/);
-		if (m && Number(m[1]) === target) {
-			idxs.add(Number(m[2]));
+function questionIndicesFor(categoryIdx) {
+	return collectIndices("qa_", "_(\\d+)_q", Number(categoryIdx));
+}
+
+// Shared DOM helpers
+
+// Anchor id derived from the English name so it stays stable across languages.
+function slugFor(base, fallback) {
+	const englishName = translate(base, "en");
+	return (
+		englishName
+			.toLowerCase()
+			.replace(/[^a-z0-9]+/g, "-")
+			.replace(/(^-|-$)/g, "") || fallback
+	);
+}
+
+function createSectionBase(idBase, nameKey, fallbackId, descKey) {
+	const section = document.createElement("section");
+	section.className = "cat-section";
+	section.id = slugFor(nameKey, fallbackId);
+
+	const label = document.createElement("a");
+	label.className = "cat-label";
+	label.href = `#${section.id}`;
+	label.textContent = translate(nameKey);
+	section.appendChild(label);
+
+	if (descKey) {
+		const desc = translate(descKey);
+		if (desc) {
+			const p = document.createElement("p");
+			p.className = "cat-desc";
+			p.textContent = desc;
+			section.appendChild(p);
 		}
 	}
 
-	return [...idxs].sort((a, b) => a - b);
+	return section;
 }
+
+// Renders either trusted HTML or plain text into `el`.
+function setContent(el, html) {
+	if (/<[a-z][\s\S]*>/i.test(html)) {
+		window.setTrustedHtml(el, html);
+	} else {
+		el.textContent = html;
+	}
+}
+
+function setHeaderText(h1Key, pKey) {
+	const h1 = document.querySelector(".page-header h1");
+	if (h1) {
+		h1.textContent = translate(h1Key);
+	}
+
+	const p = document.querySelector(".page-header p");
+	if (p) {
+		p.textContent = translate(pKey);
+	}
+}
+
+function finalize(main) {
+	window.processIconSpans?.(main);
+	window.processResIcons?.(main);
+	window.applyTranslations?.();
+}
+
+// Resources page
 
 function isCardNew(table, base, timeout = 7 * 24 * 60 * 60) {
 	const newSince = Number(table[`${base}_new`] ?? 0);
@@ -63,16 +139,8 @@ function buildResCard(sectionIdx, cardIdx) {
 	const base = `rsrc_${sectionIdx}_${cardIdx}`;
 	const table = getTranslationTable();
 
-	const href     = translate(`${base}_href`)  || "#";
-	const emote    = translate(`${base}_emote`) || "";
-	const title    = translate(`${base}_title`) || "";
-	const subtitle = translate(`${base}_subtitle`) || "";
-	const desc     = translate(`${base}_desc`) || "";
-
-	const isNew = isCardNew(table, base);
-
 	const card = document.createElement("a");
-	card.href = href;
+	card.href = translate(`${base}_href`) || "#";
 	card.target = "_blank";
 	card.rel = "noopener noreferrer";
 	card.className = "res-card";
@@ -82,10 +150,10 @@ function buildResCard(sectionIdx, cardIdx) {
 
 	const iconSpan = document.createElement("span");
 	iconSpan.className = "res-icon";
-	iconSpan.textContent = emote;
+	iconSpan.textContent = translate(`${base}_emote`) || "";
 	head.appendChild(iconSpan);
 
-	if (isNew) {
+	if (isCardNew(table, base)) {
 		const badge = document.createElement("span");
 		badge.className = "badge-new";
 		badge.setAttribute("data-i18n", "rsrc_new");
@@ -95,6 +163,7 @@ function buildResCard(sectionIdx, cardIdx) {
 
 	card.appendChild(head);
 
+	const title = translate(`${base}_title`);
 	if (title) {
 		const titleEl = document.createElement("div");
 		titleEl.className = "res-title";
@@ -102,6 +171,7 @@ function buildResCard(sectionIdx, cardIdx) {
 		card.appendChild(titleEl);
 	}
 
+	const subtitle = translate(`${base}_subtitle`);
 	if (subtitle) {
 		const subEl = document.createElement("div");
 		subEl.className = "res-desc";
@@ -110,16 +180,11 @@ function buildResCard(sectionIdx, cardIdx) {
 		card.appendChild(subEl);
 	}
 
+	const desc = translate(`${base}_desc`);
 	if (desc) {
 		const descEl = document.createElement("div");
 		descEl.className = "res-desc";
-
-		if (/<[a-z][\s\S]*>/i.test(desc)) {
-			window.setTrustedHtml(descEl, desc);
-		} else {
-			descEl.textContent = desc;
-		}
-
+		setContent(descEl, desc);
 		card.appendChild(descEl);
 	}
 
@@ -127,25 +192,11 @@ function buildResCard(sectionIdx, cardIdx) {
 }
 
 function buildResSection(sectionIdx) {
-	const section = document.createElement("section");
-	section.className = "cat-section";
-
-	const name = translate(`rsrc_${sectionIdx}_name`);
-
-	// Anchor id derived from the English name so it stays stable across languages
-	const englishName = translate(`rsrc_${sectionIdx}_name`, "en");
-	const slug = englishName
-		.toLowerCase()
-		.replace(/[^a-z0-9]+/g, "-")
-		.replace(/(^-|-$)/g, "") || `section-${sectionIdx}`;
-
-	section.id = slug;
-
-	const label = document.createElement("a");
-	label.className = "cat-label";
-	label.href = `#${slug}`;
-	label.textContent = name;
-	section.appendChild(label);
+	const section = createSectionBase(
+		`rsrc_${sectionIdx}`,
+		`rsrc_${sectionIdx}_name`,
+		`section-${sectionIdx}`
+	);
 
 	const grid = document.createElement("div");
 	grid.className = "res-grid";
@@ -155,7 +206,6 @@ function buildResSection(sectionIdx) {
 	}
 
 	section.appendChild(grid);
-
 	return section;
 }
 
@@ -165,62 +215,15 @@ function populatePageResources() {
 		return;
 	}
 
-	const h1 = document.querySelector(".page-header h1");
-	if (h1) {
-		h1.textContent = translate("rsrc_title");
-	}
-
-	const p = document.querySelector(".page-header p");
-	if (p) {
-		p.textContent = translate("rsrc_desc");
-	}
-
+	setHeaderText("rsrc_title", "rsrc_desc");
 	main.replaceChildren(...resourceSectionIndices().map(buildResSection));
-
-	window.processIconSpans?.(main);
-	window.processResIcons?.(main);
-	window.applyTranslations?.();
+	finalize(main);
 }
 
 // About page
 
-function categoryIndices() {
-	const table = getTranslationTable();
-	const idxs = new Set();
-
-	for (const key of Object.keys(table)) {
-		const m = key.match(/^qa_(\d+)_name$/);
-		if (m) {
-			idxs.add(Number(m[1]));
-		}
-	}
-
-	return [...idxs].sort((a, b) => a - b);
-}
-
-function questionIndicesFor(categoryIdx) {
-	const table = getTranslationTable();
-	const idxs = new Set();
-	const target = Number(categoryIdx);
-
-	if (!Number.isFinite(target)) {
-		return [];
-	}
-
-	for (const key of Object.keys(table)) {
-		const m = key.match(/^qa_(\d+)_(\d+)_q$/);
-		if (m && Number(m[1]) === target) {
-			idxs.add(Number(m[2]));
-		}
-	}
-
-	return [...idxs].sort((a, b) => a - b);
-}
-
 function buildQaArticle(categoryIdx, questionIdx) {
 	const base = `qa_${categoryIdx}_${questionIdx}`;
-	const q = translate(`${base}_q`);
-	const a = translate(`${base}_a`);
 
 	const details = document.createElement("details");
 	details.className = "qa";
@@ -230,11 +233,11 @@ function buildQaArticle(categoryIdx, questionIdx) {
 
 	const text = document.createElement("span");
 	text.className = "qa-q-text";
-	text.textContent = q;
+	text.textContent = translate(`${base}_q`);
 	summary.appendChild(text);
-
 	details.appendChild(summary);
 
+	const a = translate(`${base}_a`);
 	if (a) {
 		const body = document.createElement("div");
 		body.className = "qa-a";
@@ -255,33 +258,12 @@ function buildQaArticle(categoryIdx, questionIdx) {
 }
 
 function buildAboutSection(categoryIdx) {
-	const section = document.createElement("section");
-	section.className = "cat-section";
-
-	const name = translate(`qa_${categoryIdx}_name`);
-
-	// Anchor id derived from the English name so it stays stable across languages
-	const englishName = translate(`qa_${categoryIdx}_name`, "en");
-	const slug = englishName
-		.toLowerCase()
-		.replace(/[^a-z0-9]+/g, "-")
-		.replace(/(^-|-$)/g, "") || `section-${categoryIdx}`;
-
-	section.id = slug;
-
-	const label = document.createElement("a");
-	label.className = "cat-label";
-	label.href = `#${slug}`;
-	label.textContent = name;
-	section.appendChild(label);
-
-	const desc = translate(`qa_${categoryIdx}_desc`);
-	if (desc) {
-		const p = document.createElement("p");
-		p.className = "cat-desc";
-		p.textContent = desc;
-		section.appendChild(p);
-	}
+	const section = createSectionBase(
+		`qa_${categoryIdx}`,
+		`qa_${categoryIdx}_name`,
+		`section-${categoryIdx}`,
+		`qa_${categoryIdx}_desc`
+	);
 
 	questionIndicesFor(categoryIdx).forEach(idx2 => {
 		section.appendChild(buildQaArticle(categoryIdx, idx2));
@@ -296,37 +278,25 @@ function populatePageAbout() {
 		return;
 	}
 
-	const h1 = document.querySelector(".page-header h1");
-	if (h1) {
-		h1.textContent = translate("qa_pg_title");
-	}
-
-	const p = document.querySelector(".page-header p");
-	if (p) {
-		p.textContent = translate("qa_pg_desc");
-	}
-
+	setHeaderText("qa_pg_title", "qa_pg_desc");
 	main.replaceChildren(...categoryIndices().map(buildAboutSection));
-
-	window.processIconSpans?.(main);
-	window.processResIcons?.(main);
-	window.applyTranslations?.();
+	finalize(main);
 }
 
 // Bootstrap - dispatch by scope, rebuild on language toggle
 
 document.addEventListener("DOMContentLoaded", () => {
-	const scope = document.documentElement.getAttribute("data-i18n-scope")
-		?? (typeof currentScope !== "undefined" ? currentScope : "index");
+	const scope =
+		document.documentElement.getAttribute("data-i18n-scope") ??
+		(typeof currentScope !== "undefined" ? currentScope : "index");
+
+	const builders = {
+		resources: populatePageResources,
+		about: populatePageAbout,
+	};
 
 	const populate = () => {
-		if (scope === "resources") {
-			populatePageResources();
-		}
-
-		if (scope === "about") {
-			populatePageAbout();
-		}
+		builders[scope]?.();
 	};
 
 	populate();
