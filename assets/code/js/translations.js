@@ -199,7 +199,7 @@ const TRANSLATIONS_ABOUT = {
 		qa_3_9_a: "Invest in a camera, good lighting, and adapters. Lots of adapters.",
 
 		qa_3_10_q: "How much do you earn from your content?",
-		qa_3_10_a: "Nothing. The platforms where I post either don't offer me that option or I don't meet their criteria in that regard."
+		qa_3_10_a: "Nothing.<br><br>The platforms where I post either don't offer me that option or I don't meet their criteria in that regard."
 	},
 
 	pl: {
@@ -253,6 +253,6 @@ const TRANSLATIONS_ABOUT = {
 		qa_3_9_a: "Zainwestuj w kamerę, dobre światło i przejściówki. Dużo przejściówek.",
 
 		qa_3_10_q: "Ile zarabiasz na swoich treściach?",
-		qa_3_10_a: "Nic. Platformy, na których się udzielam albo nie dają mi takiej możliwości lub nie spełniam ich kryteriów w tym zakresie."
+		qa_3_10_a: "Nic.<br><br>Platformy, na których się udzielam albo nie dają mi takiej możliwości lub nie spełniam ich kryteriów w tym zakresie."
 	},
 };

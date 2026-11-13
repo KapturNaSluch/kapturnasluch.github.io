@@ -774,6 +774,7 @@ details.qa > .qa-a {
 	}
 }
 
+/*
 @media (max-width: 360px) {
 	main > .hero {
 		padding: calc(5rem + var(--height-navigation)) 2em;
@@ -797,3 +798,4 @@ details.qa > .qa-a {
 		margin-top: 0.1875em;
 	}
 }
+*/
