@@ -128,18 +128,24 @@ function updateMobileNavIcon(state) {
 		return;
 	}
 
-	span.replaceChildren();
-	span.textContent = shortcode;
 	span.dataset.navState = state;
+	span.dataset.pendingShortcode = shortcode;
 	span.classList.add("is-loading");
 
-	const p = window.processIconSpans?.(btn);
-	if (p && typeof p.then === "function") {
-		p.then(() => span.classList.remove("is-loading"))
-			.catch(() => span.classList.remove("is-loading"));
-	} else {
-		span.classList.remove("is-loading");
-	}
+	const renderShortcode = span.dataset.pendingShortcode;
+	const holder = document.createElement("span");
+	holder.className = span.className;
+	holder.textContent = renderShortcode;
+
+	window.processIconSpans?.({ querySelectorAll: () => [holder] })
+		.then(() => {
+			if (span.dataset.pendingShortcode !== renderShortcode) {
+				return;
+			}
+
+			span.replaceChildren(...holder.childNodes);
+		})
+		.finally(() => span.classList.remove("is-loading"));
 }
 
 window.updateMobileNavIcon = updateMobileNavIcon;

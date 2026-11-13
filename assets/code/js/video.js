@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 	const container = document.querySelector(".background-media");
 
 	if (!container) {
-		console.error("[Video] Container not found!");
 		return;
 	}
 

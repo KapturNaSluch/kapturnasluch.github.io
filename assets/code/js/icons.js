@@ -67,7 +67,7 @@ async function fetchIconSvg(iconId) {
 
 	const [prefix, name] = iconId.split(":");
 	if (!prefix || !name) {
-		throw new Error(`Invalid icon id: ${iconId}`);
+		throw new Error(`Invalid icon ID: ${iconId}`);
 	}
 
 	const res = await fetch(`https://api.iconify.design/${prefix}/${name}.svg`);
@@ -111,8 +111,8 @@ function randomIndex(max) {
 }
 
 // Process icon shortcodes of the form "iconify:id|(fallback, emojis)".
-// Returns a Promise that never rejects - errors are logged internally so
-// callers aren't required to attach .catch().
+let _iconRenderSeq = 0;
+
 function processIconSpans(root = document) {
 	return (async () => {
 		const iconSpans = root.querySelectorAll(
@@ -125,21 +125,30 @@ function processIconSpans(root = document) {
 					continue;
 				}
 
-				const raw = span.textContent.trim();
+				const raw = (span.dataset.iconShortcode || span.textContent).trim();
+				if (!/^[a-z0-9-]+:[a-z0-9-]+(\|.*)?$/i.test(raw)) {
+					continue;
+				}
+
 				if (!raw) {
 					continue;
 				}
+
+				const myToken = (span._iconToken = (span._iconToken || 0) + 1);
 
 				const pipeIdx = raw.indexOf("|");
 				const iconId = (pipeIdx === -1 ? raw : raw.slice(0, pipeIdx)).trim();
 				const fallbackGroup = pipeIdx === -1 ? "" : raw.slice(pipeIdx + 1);
 
-				const cleanIconId = iconId.trim();
 				let success = false;
 
-				if (cleanIconId) {
+				if (iconId) {
 					try {
-						const svgText = await fetchIconSvg(cleanIconId);
+						const svgText = await fetchIconSvg(iconId);
+						if (span._iconToken !== myToken) {
+							return;
+						}
+
 						const node = parseSvgFragment(svgText);
 
 						if (node) {
@@ -147,8 +156,13 @@ function processIconSpans(root = document) {
 							success = true;
 						}
 					} catch (err) {
+						if (span._iconToken !== myToken) return;
 						console.error(err);
 					}
+				}
+
+				if (span._iconToken !== myToken) {
+					return;
 				}
 
 				if (!success && fallbackGroup) {
