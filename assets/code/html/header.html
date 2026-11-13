@@ -1,0 +1,39 @@
+<a href="{root}" class="nav-brand">
+	<img src="{root}assets/resources/img/png/icon.png" alt="Logo" class="nav-logo-img"/>
+	<span class="logo">Kaptur<span>Na</span>Słuch</span>
+</a>
+
+<button class="nav-toggle-btn" onclick="toggleMobileNav()">
+	<span class="toggle-icon">line-md:menu|(≡)</span>
+</button>
+
+<div class="nav-controls">
+	<ul class="nav-links">
+		<li>
+			<a href="{root}/" class="nav-home-link">
+				<span class="nav-link-icon">line-md:home-md|(🏠)</span>
+				<span data-i18n="nav_home"></span>
+			</a>
+		</li>
+		<li>
+			<a href="{root}resources/" class="nav-res-link">
+				<span class="nav-link-icon">line-md:clipboard-list|(📚)</span>
+				<span data-i18n="nav_resources"></span>
+			</a>
+		</li>
+		<li>
+			<a href="{root}about/">
+				<span class="nav-link-icon">line-md:question-circle|(📕)</span>
+				<span data-i18n="nav_about"></span>
+			</a>
+		</li>
+	</ul>
+	<div style="display: flex; gap: 0.75rem; align-items: center;">
+		<button class="theme-toggle btn-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+			<span class="theme-icon">☀️</span>
+		</button>
+		<button class="lang-toggle btn-toggle" onclick="toggleLang()" aria-label="Toggle language">
+			<span class="lang-icon">PL</span>
+		</button>
+	</div>
+</div>

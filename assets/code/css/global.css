@@ -1,0 +1,118 @@
+@import url("fonts.css");
+
+/* ===== */
+/* 1. Design tokens
+/* ===== */
+
+:root {
+	--bpm: 135;
+	--beat: calc(60s / var(--bpm));
+	--bar:  calc(var(--beat) * 4);
+	--time-transition: var(--bar);
+
+	--color-background-1: #000;
+	--color-background-2: #111;
+	--color-background-3: #222;
+	--color-text-default: #EEE;
+	--color-text-muted: #DDD;
+	--color-border: #333;
+
+	--color-accent: oklch(100% 0.25 0);
+	--color-accent-dim: oklch(100% 0.125 0);
+
+	--media-background-opacity: 0.1875;
+
+	--radius-border: 8px;
+
+	--time-theme: 2s;
+	--time-hover: 0.125s;
+
+	--filter-formula-1: invert(48%) sepia(79%) saturate(2476%) hue-rotate(317deg) brightness(118%) contrast(119%);
+	--animation-timing-func: cubic-bezier(0, 0, 0, 1);
+
+	--height-navigation: 100px;
+}
+
+[data-theme="light"] {
+	--time-transition: calc(var(--bar) * 3);
+
+	--color-background-1: #EEE;
+	--color-background-2: #FFF;
+	--color-background-3: #EEE;
+	--color-text-default: #000;
+	--color-text-muted: #666;
+	--color-border: #DDD;
+
+	--color-accent: oklch(75% 0.25 0);
+	--color-accent-dim: oklch(75% 0.125 0);
+
+	--media-background-opacity: 0;
+
+	--animation-timing-func: linear;
+}
+
+/* ===== */
+/* 2. Reset
+/* ===== */
+
+*,
+*::before,
+*::after {
+	scroll-behavior: smooth;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+
+	transition:
+		background-color var(--time-theme) ease-in-out,
+		border-color     var(--time-theme) ease-in-out,
+		box-shadow       var(--time-theme) ease-in-out;
+}
+
+/* ===== */
+/* 3. Base
+/* ===== */
+
+@keyframes animationSpinHue {
+	0%   { filter: hue-rotate(0deg);   }
+	25%  { filter: hue-rotate(90deg);  }
+	50%  { filter: hue-rotate(180deg); }
+	75%  { filter: hue-rotate(270deg); }
+	100% { filter: hue-rotate(1turn);  }
+}
+
+html {
+	scroll-padding-top: var(--height-navigation);
+}
+
+body {
+	background: var(--color-background-1);
+	color: var(--color-text-default);
+	font-family: "Inter", sans-serif;
+	font-size: 16px;
+	line-height: 1.6;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+/* ===== */
+/* Elements */
+/* ===== */
+
+.blockquote {
+	border-left: 0.25em solid var(--color-text-default);
+	font-style: italic;
+	text-indent: initial;
+	padding: 1.25em;
+	text-align: left;
+	display: flex;
+	flex-flow: column;
+	gap: 2em;
+	opacity: 0.8;
+}
+
+.blockquote span:last-child {
+	display: block;
+	text-align: right;
+}
