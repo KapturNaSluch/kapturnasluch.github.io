@@ -79,26 +79,26 @@ const TRANSLATIONS_RESOURCES = {
 		rsrc_1_1_title: "Internal resources used",
 		rsrc_1_1_desc: "A curated collection of self-modified digital resources that have been used in my work.",
 		rsrc_1_1_url: "https://github.com/KapturNaSluch/resources",
-		rsrc_1_1_date: 1794597061,
+		rsrc_1_1_date: 1794700000,
 
 		rsrc_1_2_emote: "🎙️",
 		rsrc_1_2_title: "Gear",
 		rsrc_1_2_desc: "A curated collection of equipment I've used in my work.",
 		rsrc_1_2_url: "https://github.com/KapturNaSluch/resources/blob/main/internal/gear/list.md",
-		rsrc_1_2_date: 1794597061,
+		rsrc_1_2_date: 1794700000,
 
 		// Cards - 2
 		rsrc_2_1_emote: "🖼️",
 		rsrc_2_1_title: "Profile picture project",
 		rsrc_2_1_desc: "",
 		rsrc_2_1_url: "https://github.com/KapturNaSluch/resources/raw/refs/heads/main/internal/media/visual/avatar.7z",
-		rsrc_2_1_date: 1794597061,
+		rsrc_2_1_date: 1794700000,
 
 		rsrc_2_2_emote: "📚",
 		rsrc_2_2_title: "External resources used",
 		rsrc_2_2_desc: "A curated collection of resources from other creators that I rely on or refer to in my work.",
 		rsrc_2_2_url: "https://github.com/KapturNaSluch/resources/blob/main/external/list.md",
-		rsrc_2_2_date: 1794597061,
+		rsrc_2_2_date: 1794700000,
 	},
 
 	pl: {
@@ -114,25 +114,25 @@ const TRANSLATIONS_RESOURCES = {
 		rsrc_1_1_title: "Użyte zasoby wewnętrzne",
 		rsrc_1_1_desc: "Wybrany zbiór zmodyfikowanych przeze mnie zasobów cyfrowych, które zostały użyte w moich pracach.",
 		rsrc_1_1_url: "https://github.com/KapturNaSluch/resources/tree/main/internal/media",
-		rsrc_1_1_date: 1794597061,
+		rsrc_1_1_date: 1794700000,
 
 		rsrc_1_2_emote: "🎙️",
 		rsrc_1_2_title: "Sprzęt",
 		rsrc_1_2_desc: "Wybrany zbiór wyposażenia, którego użyłem podczas pracy.",
 		rsrc_1_2_url: "https://github.com/KapturNaSluch/resources/blob/main/internal/gear/list.md",
-		rsrc_1_2_date: 1794597061,
+		rsrc_1_2_date: 1794700000,
 
 		// Cards - 2
 		rsrc_2_1_emote: "🖼️",
 		rsrc_2_1_title: "Projekt zdjęcia profilowego",
 		rsrc_2_1_url: "https://github.com/KapturNaSluch/resources/raw/refs/heads/main/internal/media/visual/avatar.7z",
-		rsrc_2_1_date: 1794597061,
+		rsrc_2_1_date: 1794700000,
 
 		rsrc_2_2_emote: "📚",
 		rsrc_2_2_title: "Użyte zasoby zewnętrzne",
 		rsrc_2_2_desc: "Wybrany zbiór zasobów innych twórców, na których polegam bądź do których odnoszę się w swoich pracach.",
 		rsrc_2_2_url: "https://github.com/KapturNaSluch/resources/blob/main/external/list.md",
-		rsrc_2_2_date: 1794597061,
+		rsrc_2_2_date: 1794700000,
 	},
 };
 
@@ -187,7 +187,7 @@ const TRANSLATIONS_ABOUT = {
 		qa_3_5_a: "<ol><li>First I have to find an idea, and then write a draft of the script.</li><li>After that I give it to several popular artificial intelligence models to check.</li><li>After applying sometimes hundreds of manual corrections, I try to find a free time to go in front of the camera.</li><li>Once I have it, I need to dress up.</li><li>Then connect the appropriate equipment and start recording.</li><li>Afterward comes the matter of transferring the material to the computer...</li><li>...and editing it.<br>This process can take even several dozen days.</li><li>In the meantime, I handle audio processing<br>This is the only fully automated process.</li><li>After processing the sound files, it's time to export the video...</li><li>...and in the meantime, create the thumbnail.<br>It's a trifle and therefore the most pleasant moment in the creative process, which takes me no more than an hour to complete.</li><li>After transferring the finished data to a mobile device, the final steps are:<li>adjusting the subtitles style, their lengths, create description... and publication date.</li></li></ol>",
 
 		qa_3_6_q: "Where do you draw inspiration from?",
-		qa_3_6_a: "From everything that surrounds me and that I can connect to the topics I speak about. And moreover...<br><br><div class=\"blockquote\"><span>\"A person sometimes believes he's seen all the way to the bottom of the well of human stupidity, and a reminder that that well apparently has no bottom is sometimes useful.\"</span><span>Stephen King</span></div><br>This quote is particularly close to me because it reminds me that there will ALWAYS be someone who, in a TRULY extreme situation, I can criticize.<br><br>In my work I try to be confrontational with everything I possibly can, but there is a certain group that I treat with an enormous - for my temperament - dose of tolerance. That group is people.",
+		qa_3_6_a: "From everything that surrounds me and that I can connect to the topics I speak about. And moreover...<br><br><div class=\"blockquote\"><span>\"A person sometimes believes he's seen all the way to the bottom of the well of human stupidity, and a reminder that that well apparently has no bottom is sometimes useful.\"</span><span>Stephen King</span></div><br>This quote is particularly close to me because it reminds me that there will ALWAYS be someone who, in a TRULY extreme situation, I can criticize.<br><br>In my work I try to be confrontational with everything I possibly can, but there is a certain group that I treat with an enormous - for my temperament - dose of tolerance.<br><br>That group is called people.",
 
 		qa_3_7_q: "Do you have any material \"in the drawer\" that you put a lot of work into but ultimately never published?",
 		qa_3_7_a: "Unpublished content is an inseparable consequence of self-criticism and development, at least in art.<br><br>Projects whose publication has been halted remain in that state mainly due to an insufficiently thought-out script, which - upon further reflection - can be written much better.",
@@ -241,7 +241,7 @@ const TRANSLATIONS_ABOUT = {
 		qa_3_5_a: "<ol><li>Najpierw muszę znaleźć pomysł, a następnie napisać szkic scenariusza.</li><li>Po tym daje go kilku popularnym modelom sztucznej inteligencji do sprawdzenia.</li><li>Po zastosowaniu nieraz setek ręcznych poprawek próbuję znaleźć wolny termin na wyjście przed kamerę.</li><li>Gdy już go mam, muszę przygotować swoją charakteryzację.</li><li>Dalej podłączyć odpowiedni sprzęt i zacząć nagrywać.</li><li>Później przychodzi kwestia przerzucenia materiału na komputer...</li><li>...oraz zmontowanie go.<br>Ten proces może zająć nawet kilkadziesiąt dni.</li><li>W międzyczasie zajmuję się obróbką audio<br>Jest to jedyny proces w pełni zautomatyzowany.</li><li>Po przetworzeniu plików dźwiękowych nadchodzi czas na wyeksportowanie filmu...</li><li>...a w międzyczasie tworzenie miniatury.<br>To błahostka a zatem najprzyjemniejszy moment w procesie twórczym, który nie zajmuje mi więcej niż godziny na ukończenie.</li><li>Po transferze gotowych danych na urządzenie mobilne, końcowe czynności to:<li>dostosowanie styli napisów, ich długości, stworzenie opisu... oraz ustalenie data publikacji.</li></li></ol>",
 
 		qa_3_6_q: "Skąd czerpiesz inspiracje?",
-		qa_3_6_a: "Ze wszystkiego co mnie otacza, a co mogę powiązać z tematami, na które się wypowiadam. A ponadto...<br><br><div class=\"blockquote\"><span>\"Czasami człowiek sądzi, że ujrzał już dno studni ludzkiej głupoty, ale spotyka kogoś, dzięki komu dowiaduje się, że ta studnia jednak nie ma dna\".</span><span>Stephen King</span></div><br>Ten cytat jest mi szczególnie bliski, bo przypomina mi, że ZAWSZE znajdzie się ktoś, kogo w sytuacji NAPRAWDĘ skrajnej mogę skrytykować.<br><br>W swojej pracy staram się być konfliktowy ze wszystkim, z czym tylko mogę, ale jest pewna grupa którą traktuję z ogromną - jak na mój temperament - dozą tolerancji. Grupą tą są ludzie.",
+		qa_3_6_a: "Ze wszystkiego co mnie otacza, a co mogę powiązać z tematami, na które się wypowiadam. A ponadto...<br><br><div class=\"blockquote\"><span>\"Czasami człowiek sądzi, że ujrzał już dno studni ludzkiej głupoty, ale spotyka kogoś, dzięki komu dowiaduje się, że ta studnia jednak nie ma dna\".</span><span>Stephen King</span></div><br>Ten cytat jest mi szczególnie bliski, bo przypomina mi, że ZAWSZE znajdzie się ktoś, kogo w sytuacji NAPRAWDĘ skrajnej mogę skrytykować.<br><br>W swojej pracy staram się być konfliktowy ze wszystkim, z czym tylko mogę, ale jest pewna grupa którą traktuję z ogromną - jak na mój temperament - dozą tolerancji.<br><br>Grupą tą są ludzie.",
 
 		qa_3_7_q: "Czy masz \"w szufladzie\" materiał, w który włożyłeś mnóstwo pracy, ale ostatecznie nigdy go nie opublikowałeś?",
 		qa_3_7_a: "Nieopublikowane treści są nierozłączną konsekwencją samokrytyki oraz rozwoju, przynajmniej w sztuce.<br><br>Projekty, których publikacja została wstrzymana trwają w tym stanie głównie przez nieodpowiednio przemyślany scenariusz, który - po głębszej refleksji - można napisać znacznie lepiej.",
