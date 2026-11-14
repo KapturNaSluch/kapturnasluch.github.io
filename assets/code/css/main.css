@@ -565,7 +565,7 @@ footer .logo--lg a {
 footer .logo--lg a > img {
 	opacity: 0.75;
 	height: 1em;
-	border-radius: 0.25em;
+	border-radius: 0.1875em;
 }
 
 .footer-copy {

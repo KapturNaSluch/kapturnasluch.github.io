@@ -126,19 +126,22 @@ function processIconSpans(root = document) {
 				}
 
 				const raw = (span.dataset.iconShortcode || span.textContent).trim();
-				if (!/^[a-z0-9-]+:[a-z0-9-]+(\|.*)?$/i.test(raw)) {
-					continue;
-				}
-
 				if (!raw) {
 					continue;
 				}
 
-				const myToken = (span._iconToken = (span._iconToken || 0) + 1);
-
 				const pipeIdx = raw.indexOf("|");
 				const iconId = (pipeIdx === -1 ? raw : raw.slice(0, pipeIdx)).trim();
 				const fallbackGroup = pipeIdx === -1 ? "" : raw.slice(pipeIdx + 1);
+
+				// Validate the shortcode head with a literal regex (no `.*`, no
+				// constructor-built pattern) — this is the only place the string is
+				// interpreted, so it's the right place to gate it.
+				if (!/^[a-z0-9-]+:[a-z0-9-]+$/i.test(iconId)) {
+					continue;
+				}
+
+				const myToken = (span._iconToken = (span._iconToken || 0) + 1);
 
 				let success = false;
 

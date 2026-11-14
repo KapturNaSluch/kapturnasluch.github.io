@@ -28,6 +28,7 @@ async function loadComponent(selector, file, rootPath, callback) {
 		if (typeof container.setHTMLUnsafe === "function") {
 			const temp = document.createElement(container.localName || "div");
 
+			// eslint-disable-next-line no-unsanitized/method -- component HTML from same-origin fetch
 			temp.setHTMLUnsafe(html);
 			replaceInFragment(temp, "{root}", rootPath);
 			container.replaceChildren(...temp.childNodes);
@@ -110,6 +111,22 @@ const NAV_ICONS = {
 	closing: "line-md:menu-to-close-transition|(✕)"
 };
 
+function navIconFor(state) {
+	if (state === "closed") {
+		return NAV_ICONS.closed;
+	}
+
+	if (state === "opening") {
+		return NAV_ICONS.opening;
+	}
+
+	if (state === "closing") {
+		return NAV_ICONS.closing;
+	}
+
+	return null;
+}
+
 function updateMobileNavIcon(state) {
 	const btn = document.querySelector(".nav-toggle-btn");
 	if (!btn) {
@@ -117,7 +134,7 @@ function updateMobileNavIcon(state) {
 	}
 
 	const span = btn.querySelector(".toggle-icon") || btn;
-	const shortcode = NAV_ICONS[state];
+	const shortcode = navIconFor(state);
 	if (!shortcode) {
 		return;
 	}

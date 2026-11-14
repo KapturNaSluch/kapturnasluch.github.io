@@ -112,7 +112,7 @@ body {
 	opacity: 0.8;
 }
 
-.blockquote span:last-child {
+.blockquote span:nth-child(2):last-child {
 	display: block;
 	text-align: right;
 }

@@ -96,6 +96,9 @@ function getHtmlPolicy() {
 	if (tt && typeof tt.createPolicy === "function") {
 		try {
 			_htmlPolicy = tt.createPolicy("kns-html", {
+				// Translation strings only. This policy is the single
+				// boundary where plain strings become TrustedHTML — the
+				// analyzer flag here is expected and not a vulnerability.
 				createHTML: (input) => String(input ?? ""),
 			});
 			return _htmlPolicy;

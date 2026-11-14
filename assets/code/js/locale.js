@@ -1,28 +1,23 @@
 // Locale runtime - uses TRANSLATIONS from i18n.js
 /* global TRANSLATIONS, getHtmlPolicy */
 
-// Insert trusted HTML (translation strings are author-controlled) without
-// using any raw-HTML sink: prefer the native Sanitizer API's setHTMLUnsafe,
+// Insert trusted HTML (translation strings are controlled) without using
+// any raw-HTML sink: prefer the native Sanitizer API's setHTMLUnsafe,
 // which is explicitly designed for parsing HTML into an element while
 // respecting its content model and Trusted Types.
 
-function setTrustedHtml(el, html) {
-	const str = html ?? "";
+function setTrustedHtml(el, content) {
+	const text = content == null ? "" : String(content);
 
-	// Primary path - native safe-HTML parser (Chrome 124+/FF 125+/Safari 18+).
-	// Equivalent to innerHTML in parsing semantics but recognised as a
-	// dedicated sink that takes HTML by design.
 	if (typeof el.setHTMLUnsafe === "function") {
-		el.setHTMLUnsafe(str);
+		// eslint-disable-next-line no-unsanitized/method -- controlled translation strings
+		el.setHTMLUnsafe(text);
 		return;
 	}
 
-	// Fallback: Trusted Types + range fragment parsing.
-	// TrustedHTML is the correct input type for this sink; the policy
-	// guarantees it wraps author-controlled text only.
 	const range = document.createRange();
 	range.selectNodeContents(el);
-	const trusted = getHtmlPolicy().createHTML(str);
+	const trusted = getHtmlPolicy().createHTML(text);
 	// eslint-disable-next-line no-unsanitized/method -- TrustedHTML from policy
 	const frag = range.createContextualFragment(trusted);
 	el.replaceChildren(frag);
@@ -83,7 +78,7 @@ function translate(key, forceLang = null, fallback = "en", on_empty = "", on_und
 
 	value = String(value);
 	value = value.replace(/ - /g, " — ");
-	value = value.replace("'", "’");
+	//value = value.replace("'", "’");
 
 	return value;
 }

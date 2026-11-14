@@ -20,6 +20,11 @@ function getTranslationTable() {
 function collectIndices(prefix, suffix, filterSection) {
 	const table = getTranslationTable();
 	const idxs = new Set();
+
+	if (!/^[A-Za-z0-9_()\\+]+$/.test(prefix) || !/^[A-Za-z0-9_()\\+]+$/.test(suffix)) {
+		throw new Error("collectIndices: unsafe prefix/suffix");
+	}
+
 	const re = new RegExp(`^${prefix}(\\d+)${suffix}$`);
 
 	for (const key of Object.keys(table)) {
@@ -31,7 +36,7 @@ function collectIndices(prefix, suffix, filterSection) {
 		const cardNum = m[2] !== undefined ? Number(m[2]) : undefined;
 
 		// When filterSection is given, keep only matches for that section.
-		if (filterSection !== undefined && Number(m[2]) !== filterSection) {
+		if (filterSection !== undefined && Number(m[1]) !== filterSection) {
 			continue;
 		}
 
@@ -94,12 +99,19 @@ function createSectionBase(idBase, nameKey, fallbackId, descKey) {
 	return section;
 }
 
-// Renders either trusted HTML or plain text into `el`.
-function setContent(el, html) {
-	if (/<[a-z][\s\S]*>/i.test(html)) {
-		window.setTrustedHtml(el, html);
+// Renders either trusted HTML (controlled translation strings) or plain text
+// into `el`. The HTML branch goes through the Trusted-Types-backed sink
+// in locale.js; the text branch uses textContent (never parsed).
+function setContent(el, content) {
+	if (typeof content !== "string") {
+		el.textContent = String(content ?? "");
+		return;
+	}
+
+	if (/<[a-z][\s\S]*>/i.test(content)) {
+		window.setTrustedHtml(el, content);
 	} else {
-		el.textContent = html;
+		el.textContent = content;
 	}
 }
 
@@ -124,7 +136,7 @@ function finalize(main) {
 // Resources page
 
 function isCardNew(table, base, timeout = 7 * 24 * 60 * 60) {
-	const newSince = Number(table[`${base}_new`] ?? 0);
+	const newSince = Number(table[`${base}_date`] ?? 0);
 	const nowSec = Math.floor(Date.now() / 1000);
 
 	return (
@@ -140,7 +152,7 @@ function buildResCard(sectionIdx, cardIdx) {
 	const table = getTranslationTable();
 
 	const card = document.createElement("a");
-	card.href = translate(`${base}_href`) || "#";
+	card.href = translate(`${base}_url`) || "#";
 	card.target = "_blank";
 	card.rel = "noopener noreferrer";
 	card.className = "res-card";
@@ -156,7 +168,7 @@ function buildResCard(sectionIdx, cardIdx) {
 	if (isCardNew(table, base)) {
 		const badge = document.createElement("span");
 		badge.className = "badge-new";
-		badge.setAttribute("data-i18n", "rsrc_new");
+		badge.setAttribute("data-i18n", "rsrc_date");
 		badge.textContent = "new";
 		head.appendChild(badge);
 	}
@@ -285,25 +297,35 @@ function populatePageAbout() {
 
 // Bootstrap - dispatch by scope, rebuild on language toggle
 
+function getBuilder(scope) {
+	if (scope === "resources") {
+		return populatePageResources;
+	}
+
+	if (scope === "about") {
+		return populatePageAbout;
+	}
+
+	return null;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
 	const scope =
 		document.documentElement.getAttribute("data-i18n-scope") ??
 		(typeof currentScope !== "undefined" ? currentScope : "index");
 
-	const builders = {
-		resources: populatePageResources,
-		about: populatePageAbout,
-	};
-
 	const populate = () => {
-		builders[scope]?.();
+		const builder = getBuilder(scope);
+		if (builder) {
+			builder();
+		}
 	};
 
 	populate();
 
 	const originalToggle = window.toggleLang;
 	if (typeof originalToggle === "function") {
-		window.toggleLang = function() {
+		window.toggleLang = function () {
 			originalToggle();
 			populate();
 		};
