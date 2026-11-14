@@ -1,16 +1,33 @@
 Object.defineProperty(String.prototype, "capitalize", {
 	value: function () {
-		return this.charAt(0).toUpperCase() + this.slice(1);
+		return this
+			.charAt(0)
+			.toUpperCase() + this.slice(1);
+	},
+	enumerable: false,
+});
+
+Object.defineProperty(String.prototype, "title", {
+	value: function () {
+		return this
+			.toLowerCase()
+			.split(" ")
+			.map(word => word.charAt(0).toUpperCase() + word.slice(1))
+			.join(" ");
 	},
 	enumerable: false,
 });
 
 // --- //
 
+let _baseTitle = null;
+
 function setDocumentTitle() {
-	const titleEl = document.getElementsByTagName("title")[0];
-	// <title> is plain text - textContent is the correct API here
-	const base = titleEl && titleEl.textContent ? titleEl.textContent : "Webpage";
+	if (_baseTitle === null) {
+		const titleEl = document.getElementsByTagName("title")[0];
+		_baseTitle = titleEl && titleEl.textContent ? titleEl.textContent : "Webpage";
+	}
+	const base = _baseTitle;
 
 	let slug = document.documentElement.getAttribute("data-i18n-scope");
 
@@ -35,7 +52,7 @@ function setDocumentTitle() {
 		? translateFn(titleKey, null, "en")
 		: "";
 
-	const label = raw ? raw.capitalize() : "";
+	const label = raw ? raw.title() : "";
 
 	const isHome = slug === "home" || slug === "index" || slug === "";
 
@@ -43,3 +60,5 @@ function setDocumentTitle() {
 		? base
 		: `${base} │ ${label}`;
 }
+
+window.setDocumentTitle = setDocumentTitle;

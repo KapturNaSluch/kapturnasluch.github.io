@@ -82,6 +82,7 @@
 }
 
 html {
+  background: black;
 	scroll-padding-top: var(--height-navigation);
 }
 

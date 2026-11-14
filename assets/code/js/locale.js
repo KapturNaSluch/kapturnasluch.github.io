@@ -147,6 +147,11 @@ function applyTranslations() {
 	if (typeof updateThemeButtonLabelFn === "function") {
 		updateThemeButtonLabelFn();
 	}
+
+	const setDocumentTitleFn = window.setDocumentTitle;
+	if (typeof setDocumentTitleFn === "function") {
+		setDocumentTitleFn();
+	}
 }
 
 window.toggleLang = function() {

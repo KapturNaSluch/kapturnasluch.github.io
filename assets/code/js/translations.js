@@ -8,7 +8,7 @@ const TRANSLATIONS_SHARED = {
 		nav_resources: "resources",
 		rsrc_date: "new",
 
-		nav_about: "about",
+		nav_about: "about me",
 
 		footer_copy: "Ⓛ All lefts reserved.",
 
@@ -68,7 +68,7 @@ const TRANSLATIONS_INDEX = {
 const TRANSLATIONS_RESOURCES = {
 	en: {
 		// Page header
-		rsrc_desc: "Content associated with my work.",
+		rsrc_desc: "Associated with my work.",
 
 		// Sections
 		rsrc_1_name: "Main",
@@ -103,7 +103,7 @@ const TRANSLATIONS_RESOURCES = {
 
 	pl: {
 		// Page header
-		rsrc_desc: "Treści związane z moją twórczością.",
+		rsrc_desc: "Związane z moją twórczością.",
 
 		// Sections
 		rsrc_1_name: "Główne",
