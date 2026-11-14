@@ -107,8 +107,8 @@ function replaceInFragment(node, search, replacement) {
 
 const NAV_ICONS = {
 	closed:  "line-md:menu|(≡)",
-	opening: "line-md:close-to-menu-transition|(≡)",
-	closing: "line-md:menu-to-close-transition|(✕)"
+	opening: "line-md:menu-to-close-transition|(✕)",
+	closing: "line-md:close-to-menu-transition|(≡)"
 };
 
 function navIconFor(state) {

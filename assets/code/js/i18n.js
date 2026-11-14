@@ -8,12 +8,15 @@ function getScopeTable(scope) {
 	if (scope === "index") {
 		return TRANSLATIONS_INDEX;
 	}
+
 	if (scope === "resources") {
 		return TRANSLATIONS_RESOURCES;
 	}
+
 	if (scope === "about") {
 		return TRANSLATIONS_ABOUT;
 	}
+
 	return null;
 }
 
@@ -101,6 +104,7 @@ function getHtmlPolicy() {
 				// analyzer flag here is expected and not a vulnerability.
 				createHTML: (input) => String(input ?? ""),
 			});
+
 			return _htmlPolicy;
 		} catch (err) {
 			console.warn("Trusted Types policy creation failed:", err);
