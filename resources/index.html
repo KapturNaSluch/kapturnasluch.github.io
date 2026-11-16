@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Meta -->
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+		<!-- Theme Color -->
+		<meta name="theme-color" content="#FFAA00" media="(prefers-color-scheme: light)">
+		<meta name="theme-color" content="#FFAA00" media="(prefers-color-scheme: dark)">
+
+		<!-- Primary Meta Tags -->
+		<title>KapturNaSłuch</title>
+		<meta name="description" content="Resources related to my work that you might find worthy.">
+
+		<!-- Embed card -->
+		<meta property="og:type" content="website">
+		<meta property="og:site_name" content="KapturNaSłuch">
+		<meta property="og:title" content="KapturNaSłuch - Resources">
+		<meta property="og:description" content="Resources related to my work that you might find worthy.">
+		<meta property="og:image" content="https://kapturnasluch.github.io/assets/resources/img/png/banners/banner_dark_resources.png">
+		<meta property="og:url" content="https://kapturnasluch.github.io/resources">
+
+		<!-- X Card -->
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:title" content="KapturNaSłuch - Resources">
+		<meta name="twitter:description" content="Resources related to my work that you might find worthy.">
+		<meta name="twitter:image" content="https://kapturnasluch.github.io/assets/resources/img/png/banners/banner_dark_resources.png">
+
+		<!-- Icons -->
+		<link rel="icon" type="image/svg" href="../assets/resources/img/ico/resources.ico"/>
+
+		<!-- CSS -->
+		<link rel="stylesheet" href="../assets/code/css/global.css"/>
+		<link rel="stylesheet" href="../assets/code/css/main.css"/>
+	</head>
+	<body id="top">
+		<nav class="header"></nav>
+
+		<div class="page-header">
+			<h1 data-i18n="resources_page_title" style="text-decoration: capitalize"></h1>
+			<p data-i18n="rsrc_desc" style="text-decoration: capitalize"></p>
+		</div>
+
+		<main class="content"></main>
+
+		<footer id="bottom" class="footer"></footer>
+
+		<script src="../assets/code/js/utils/utils.js"></script>
+		<script src="../assets/code/js/utils/visual/emoji/emoji.js"></script>
+		<script src="../assets/code/js/locale/i18n.js"></script>
+		<script src="../assets/code/js/locale/locale.js"></script>
+		<script src="../assets/code/js/utils/visual/emoji/icons.js"></script>
+		<script src="../assets/code/js/utils/visual/theme.js"></script>
+		<script src="../assets/code/js/utils/components.js"></script>
+		<script src="../assets/code/js/page/populate.js"></script>
+		<script>
+			document.addEventListener("DOMContentLoaded", () => {
+				loadComponent(".header", "../assets/code/html/header.html", "..", () => {
+					applyTranslations();
+					updateMobileNavIcon("closed");
+				});
+				loadComponent(".footer", "../assets/code/html/footer.html", "..", applyTranslations);
+
+				setDocumentTitle();
+			});
+		</script>
+	</body>
+</html>

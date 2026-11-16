@@ -1,0 +1,13 @@
+{
+	"TikTok": {
+		"line-md:tiktok|(🎵)": "https://tiktok.com/@KapturNaSluch"
+	},
+
+	"GitHub": {
+		"line-md:github-loop|(👨‍💻)": "https://github.com/KapturNaSluch"
+	},
+
+	"E-Mail": {
+		"line-md:email|(📧)": "mailto:kapturnasluch@gmail.com"
+	}
+}

@@ -1,0 +1,30 @@
+{
+	"rsrc_desc": "Associated with my work.",
+
+	"rsrc_1_name": "Main",
+	"rsrc_2_name": "Other",
+
+	"rsrc_1_1_emote": "🎨",
+	"rsrc_1_1_title": "Internal resources used",
+	"rsrc_1_1_desc": "A curated collection of self-modified digital resources that have been used in my work.",
+	"rsrc_1_1_url": "https://github.com/KapturNaSluch/resources",
+	"rsrc_1_1_date": 1794700000,
+
+	"rsrc_1_2_emote": "🎙️",
+	"rsrc_1_2_title": "Gear",
+	"rsrc_1_2_desc": "A curated collection of equipment I've used in my work.",
+	"rsrc_1_2_url": "https://github.com/KapturNaSluch/resources/blob/main/internal/gear/list.md",
+	"rsrc_1_2_date": 1794700000,
+
+	"rsrc_2_1_emote": "🖼️",
+	"rsrc_2_1_title": "Profile pictures projects",
+	"rsrc_2_1_desc": "Source files of images that were associated with my presence.",
+	"rsrc_2_1_url": "https://github.com/KapturNaSluch/resources/raw/refs/heads/main/internal/media/visual/avatar.7z",
+	"rsrc_2_1_date": 1794700000,
+
+	"rsrc_2_2_emote": "📚",
+	"rsrc_2_2_title": "External resources used",
+	"rsrc_2_2_desc": "A curated collection of resources from other creators that I rely on or refer to in my work.",
+	"rsrc_2_2_url": "https://github.com/KapturNaSluch/resources/blob/main/external/list.md",
+	"rsrc_2_2_date": 1794700000
+}

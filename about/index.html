@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Meta -->
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+		<!-- Theme Color -->
+		<meta name="theme-color" content="#99FF00" media="(prefers-color-scheme: light)">
+		<meta name="theme-color" content="#99FF00" media="(prefers-color-scheme: dark)">
+
+		<!-- Primary Meta Tags -->
+		<title>KapturNaSłuch</title>
+		<meta name="description" content="Meet me.">
+
+		<!-- Embed card -->
+		<meta property="og:type" content="website">
+		<meta property="og:site_name" content="KapturNaSłuch">
+		<meta property="og:title" content="KapturNaSłuch - About">
+		<meta property="og:description" content="Meet me.">
+		<meta property="og:image" content="https://kapturnasluch.github.io/assets/resources/img/png/banners/banner_dark_about.png">
+		<meta property="og:url" content="https://kapturnasluch.github.io/about/">
+
+		<!-- X Card -->
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:title" content="KapturNaSłuch - About">
+		<meta name="twitter:description" content="Meet me.">
+		<meta name="twitter:image" content="https://kapturnasluch.github.io/assets/resources/img/png/banners/banner_dark_about.png">
+
+		<!-- Icons -->
+		<link rel="icon" type="image/svg" href="../assets/resources/img/ico/about.ico"/>
+
+		<!-- CSS -->
+		<link rel="stylesheet" href="../assets/code/css/global.css"/>
+		<link rel="stylesheet" href="../assets/code/css/main.css"/>
+	</head>
+	<body id="top">
+		<nav class="header"></nav>
+
+		<header class="page-header">
+			<h1 data-i18n="about_page_title"></h1>
+			<p data-i18n="qa_pg_desc"></p>
+		</header>
+
+		<main class="content interview"></main>
+
+		<footer id="bottom" class="footer"></footer>
+
+		<script src="../assets/code/js/utils/utils.js"></script>
+		<script src="../assets/code/js/utils/visual/emoji/emoji.js"></script>
+		<script src="../assets/code/js/locale/i18n.js"></script>
+		<script src="../assets/code/js/locale/locale.js"></script>
+		<script src="../assets/code/js/utils/visual/emoji/icons.js"></script>
+		<script src="../assets/code/js/utils/visual/theme.js"></script>
+		<script src="../assets/code/js/utils/components.js"></script>
+		<script src="../assets/code/js/page/populate.js"></script>
+		<script>
+			document.addEventListener("DOMContentLoaded", () => {
+				loadComponent(".header", "../assets/code/html/header.html", "..", () => {
+					applyTranslations();
+					updateMobileNavIcon("closed");
+				});
+				loadComponent(".footer", "../assets/code/html/footer.html", "..", applyTranslations);
+
+				setDocumentTitle();
+			});
+		</script>
+	</body>
+</html>

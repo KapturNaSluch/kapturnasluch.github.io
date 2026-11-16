@@ -1,0 +1,30 @@
+{
+	"rsrc_desc": "Związane z moją twórczością.",
+
+	"rsrc_1_name": "Główne",
+	"rsrc_2_name": "Inne",
+
+	"rsrc_1_1_emote": "🎨",
+	"rsrc_1_1_title": "Użyte zasoby wewnętrzne",
+	"rsrc_1_1_desc": "Wybrany zbiór zmodyfikowanych przeze mnie zasobów cyfrowych, które zostały użyte w moich pracach.",
+	"rsrc_1_1_url": "https://github.com/KapturNaSluch/resources/tree/main/internal/media",
+	"rsrc_1_1_date": 1794700000,
+
+	"rsrc_1_2_emote": "🎙️",
+	"rsrc_1_2_title": "Sprzęt",
+	"rsrc_1_2_desc": "Wybrany zbiór wyposażenia, którego użyłem podczas pracy.",
+	"rsrc_1_2_url": "https://github.com/KapturNaSluch/resources/blob/main/internal/gear/list.md",
+	"rsrc_1_2_date": 1794700000,
+
+	"rsrc_2_1_emote": "🖼️",
+	"rsrc_2_1_title": "Projekty zdjęć profilowych",
+	"rsrc_2_1_desc": "Pliki źródłowe obrazów pozwiązanych z moją obecnością.",
+	"rsrc_2_1_url": "https://github.com/KapturNaSluch/resources/raw/refs/heads/main/internal/media/visual/avatar.7z",
+	"rsrc_2_1_date": 1794700000,
+
+	"rsrc_2_2_emote": "📚",
+	"rsrc_2_2_title": "Użyte zasoby zewnętrzne",
+	"rsrc_2_2_desc": "Wybrany zbiór zasobów innych twórców, na których polegam bądź do których odnoszę się w swoich pracach.",
+	"rsrc_2_2_url": "https://github.com/KapturNaSluch/resources/blob/main/external/list.md",
+	"rsrc_2_2_date": 1794700000
+}
