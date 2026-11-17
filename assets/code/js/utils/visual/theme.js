@@ -2,8 +2,8 @@
 // Depends on: icons.js (renderShortcode)
 
 const THEME_ICONS = {
-	dark:  "line-md:moon-filled-alt-to-sunny-filled-loop-transition|🌑",
-	light: "line-md:sunny-filled-loop-to-moon-filled-alt-loop-transition|☀️",
+	dark:  "line-md:sunny-filled-loop-to-moon-filled-alt-loop-transition|🌑",
+	light: "line-md:moon-filled-alt-to-sunny-filled-loop-transition|☀️",
 };
 
 function getPreferredTheme() {

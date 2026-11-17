@@ -241,6 +241,12 @@ nav {
 	max-width: 1.2em;
 }
 
+.nav-options {
+	display: flex;
+	gap: 0.5em;
+	align-self: center;
+}
+
 .nav-toggle-btn {
 	display: none;
 	color: var(--color-text-default);
@@ -309,11 +315,17 @@ nav {
 	visibility: hidden;
 }
 
+.lang-picker {
+	display: flex;
+	align-self: center;
+}
+
 .btn-toggle {
 	color: var(--color-text-default);
 	font-size: 2em;
 	cursor: pointer;
 	display: inline-flex;
+	align-self: center;
 
 	transition:
 		background   var(--time-theme) ease-in-out,
@@ -491,6 +503,7 @@ img .hero-avatar {
 
 .lang-icon-img {
 	width: 2.5em;
+	filter: drop-shadow(0 0 2px black);
 }
 
 .btn-toggle .theme-icon svg {
@@ -605,7 +618,7 @@ img .hero-avatar {
 
 .res-card-head {
 	display: flex;
-	align-items: flex-start;
+	align-items: start;
 	justify-content: space-between;
 	gap: 0.5em;
 	margin-bottom: 0.6em;
@@ -879,6 +892,10 @@ details.qa > .qa-a {
 		gap: 1em;
 		width: 100%;
 		padding-top: 1em;
+	}
+
+	.nav-options {
+		align-self: end;
 	}
 
 	.lang-dropdown {

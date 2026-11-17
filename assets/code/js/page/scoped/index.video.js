@@ -225,7 +225,7 @@ const BackgroundVideo = (() => {
 		STATE.videos.forEach(video => video.addEventListener("ended", switchVideo));
 	}
 
-	// return { init };
+	return { init };
 })();
 
 // expose for linters
