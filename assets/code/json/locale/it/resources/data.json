@@ -1,28 +1,28 @@
 {
-    "rsrc_desc": "Relativo alla mia produzione artistica.",
+	"rsrc_desc": "Relativo alla mia produzione artistica.",
 
-    "rsrc_1_name": "Principali",
-    "rsrc_2_name": "Altri",
+	"rsrc_1_name": "Principali",
+	"rsrc_2_name": "Altri",
 
-    "rsrc_1_1_emote": "🎨",
+	"rsrc_1_1_emote": "🎨",
 	"rsrc_1_1_title": "Risorse interne utilizzate",
-    "rsrc_1_1_desc": "Una selezione di risorse digitali da me modificate e utilizzate nelle mie opere.",
+	"rsrc_1_1_desc": "Una selezione di risorse digitali da me modificate e utilizzate nelle mie opere.",
 	"rsrc_1_1_url": "https://github.com/KapturNaSluch/resources/tree/main/internal/media",
-    "rsrc_1_1_date": 1794700000,
+	"rsrc_1_1_date": 1794700000,
 
-    "rsrc_1_2_emote": "🎙️",
+	"rsrc_1_2_emote": "🎙️",
 	"rsrc_1_2_title": "Attrezzatura",
-    "rsrc_1_2_desc": "Una selezione dell’attrezzatura che ho utilizzato durante il mio lavoro.",
-    "rsrc_1_2_url": "https://github.com/KapturNaSluch/resources/blob/main/internal/gear/list.md",
+	"rsrc_1_2_desc": "Una selezione dell’attrezzatura che ho utilizzato durante il mio lavoro.",
+	"rsrc_1_2_url": "https://github.com/KapturNaSluch/resources/blob/main/internal/gear/list.md",
 	"rsrc_1_2_date": 1794700000,
 
-    "rsrc_2_1_emote": "🖼️",
+	"rsrc_2_1_emote": "🖼️",
 	"rsrc_2_1_title": "Progetti di foto profilo",
-    "rsrc_2_1_desc": "File sorgente delle immagini relative alla mia presenza.",
+	"rsrc_2_1_desc": "File sorgente delle immagini relative alla mia presenza.",
 	"rsrc_2_1_url": "https://github.com/KapturNaSluch/resources/raw/refs/heads/main/internal/media/visual/avatar.7z",
-    "rsrc_2_1_date": 1794700000,
+	"rsrc_2_1_date": 1794700000,
 
 	"rsrc_2_2_emote": "📚",
-    "rsrc_2_2_title": "Risorse esterne utilizzate",
-    "rsrc_2_2_desc": "Una selezione di risorse di altri autori su cui faccio affidamento o a cui faccio riferimento nei miei lavori."
+	"rsrc_2_2_title": "Risorse esterne utilizzate",
+	"rsrc_2_2_desc": "Una selezione di risorse di altri autori su cui faccio affidamento o a cui faccio riferimento nei miei lavori."
 }

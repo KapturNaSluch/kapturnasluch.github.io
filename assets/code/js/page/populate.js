@@ -15,6 +15,46 @@ function getTranslationTable() {
 	return map.get(lang) ?? map.get("en") ?? {};
 }
 
+// safe keyed lookup
+let _safeTableCache = null;
+
+function getSafeTable() {
+	if (_safeTableCache) {
+		return _safeTableCache;
+	}
+
+	const src = getTranslationTable();
+	const map = new Map();
+
+	for (const [k, v] of Object.entries(src)) {
+		if (typeof k !== "string") {
+			continue;
+		}
+
+		if (typeof v === "string" || typeof v === "number") {
+			map.set(k, v);
+		}
+	}
+
+	_safeTableCache = map;
+	return map;
+}
+
+function resetSafeTable() {
+	_safeTableCache = null;
+}
+
+const SAFE_KEY_RE = /^[A-Za-z0-9_]+$/;
+
+function safeGet(map, key) {
+	if (typeof key !== "string" || !SAFE_KEY_RE.test(key)) {
+		return "";
+	}
+
+	const v = map.get(key);
+	return typeof v === "string" ? v : "";
+}
+
 // Generic index helpers
 
 function escapeRegExp(s) {
@@ -197,26 +237,45 @@ function populateHeroTaglines() {
 
 // Resources page
 
-function isCardNew(table, base, timeout = 7 * 24 * 60 * 60) {
-	// literal pattern but rebuild for consistency
-	const map = new Map(Object.entries(table));
-	const newSince = Number(map.get(`${base}_date`) ?? 0);
+function getCardDateSec(map, base) {
+    const v = map.get(`${base}_date`);
+    if (v === undefined) {
+		return null;
+	}
+
+    const sec = Number(v);
+
+    return Number.isFinite(sec) && sec > 0 ? sec : null;
+}
+
+function isCardNew(map, base, timeout = 7 * 24 * 60 * 60) {
+	const newSince = getCardDateSec(map, base);
+	if (newSince === null) {
+		return false;
+	}
+
 	const nowSec = Math.floor(Date.now() / 1000);
 
-	return (
-		Number.isFinite(newSince) &&
-		newSince > 0 &&
-		newSince <= nowSec &&
-		(nowSec - newSince) < timeout // in seconds
-	);
+	// lookahead (min) for future entries
+	const GRACE = 5 * 60;
+	const age = nowSec - newSince;
+
+	return age < timeout && age > -GRACE;
 }
 
 function buildResCard(sectionIdx, cardIdx) {
+	// guard the indices
+	if (!Number.isInteger(sectionIdx) || sectionIdx < 0 ||
+		!Number.isInteger(cardIdx) || cardIdx < 0) {
+		return null;
+	}
+
 	const base = `rsrc_${sectionIdx}_${cardIdx}`;
-	const table = getTranslationTable();
+	const map = getSafeTable();
+	const get = suffix => safeGet(map, `${base}_${suffix}`);
 
 	const card = document.createElement("a");
-	card.href = translate(`${base}_url`) || "#";
+	card.href = get("url") || "#";
 	card.target = "_blank";
 	card.rel = "noopener noreferrer";
 	card.className = "res-card";
@@ -226,20 +285,29 @@ function buildResCard(sectionIdx, cardIdx) {
 
 	const iconSpan = document.createElement("span");
 	iconSpan.className = "res-icon";
-	iconSpan.textContent = translate(`${base}_emote`) || "";
+	iconSpan.textContent = get("emote");
 	head.appendChild(iconSpan);
 
-	if (isCardNew(table, base)) {
-		const badge = document.createElement("span");
-		badge.className = "badge-new";
-		badge.setAttribute("data-i18n", "rsrc_date");
-		badge.textContent = "new";
-		head.appendChild(badge);
+	const options = {
+		dateStyle: "full",
+		timeStyle: "long",
+	};
+
+	if (isCardNew(map, base)) {
+		const dateSec = getCardDateSec(map, base);
+		if (dateSec !== null) {
+			const badge = document.createElement("span");
+			badge.className = "badge-new";
+			badge.setAttribute("data-i18n", "rsrc_date");
+			badge.textContent = "new";
+			badge.title = new Date(dateSec * 1000).toLocaleString(undefined, options);
+			head.appendChild(badge);
+		}
 	}
 
 	card.appendChild(head);
 
-	const title = translate(`${base}_title`);
+	const title = get("title");
 	if (title) {
 		const titleEl = document.createElement("div");
 		titleEl.className = "res-title";
@@ -247,7 +315,7 @@ function buildResCard(sectionIdx, cardIdx) {
 		card.appendChild(titleEl);
 	}
 
-	const subtitle = translate(`${base}_subtitle`);
+	const subtitle = get("subtitle");
 	if (subtitle) {
 		const subEl = document.createElement("div");
 		subEl.className = "res-desc";
@@ -256,7 +324,7 @@ function buildResCard(sectionIdx, cardIdx) {
 		card.appendChild(subEl);
 	}
 
-	const desc = translate(`${base}_desc`);
+	const desc = get("desc");
 	if (desc) {
 		const descEl = document.createElement("div");
 		descEl.className = "res-desc";
@@ -278,7 +346,10 @@ function buildResSection(sectionIdx) {
 	grid.className = "res-grid";
 
 	for (const cardIdx of resourceCardIndices(sectionIdx)) {
-		grid.appendChild(buildResCard(sectionIdx, cardIdx));
+		const card = buildResCard(sectionIdx, cardIdx);
+		if (card) {
+			grid.appendChild(card);
+		}
 	}
 
 	section.appendChild(grid);
@@ -365,7 +436,7 @@ function populatePageAbout() {
 	finalize(main);
 }
 
-// Bootstrap - dispatch by scope, rebuild on language toggle
+// Bootstrap
 
 function getBuilder(scope) {
 	if (scope === "resources") {
@@ -375,7 +446,7 @@ function getBuilder(scope) {
 	if (scope === "about") {
 		return populatePageAbout;
 	}
-	
+
 	return null;
 }
 
@@ -391,6 +462,9 @@ function populatePage() {
 }
 
 window.onTranslationsReady = function() {
+	// rebuild lookup after lang switch so stale entries do not leak
+	resetSafeTable();
+
 	populateHeroTaglines();
 	populatePage();
 };

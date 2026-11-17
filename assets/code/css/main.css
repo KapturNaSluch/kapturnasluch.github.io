@@ -606,13 +606,15 @@ img .hero-avatar {
 	text-decoration: none;
 	color: inherit;
 
+	/*! animation: animationSpinHue var(--time-transition) var(--animation-timing-func) infinite; */
+
 	transition:
 		background   var(--time-theme) ease-in-out,
 		border-color var(--time-hover) ease-in-out;
 }
 
 .res-card:hover {
-	border-color: var(--color-accent);
+	border-color: var(--color-text-muted);
 	background: var(--color-background-3);
 }
 
@@ -637,6 +639,7 @@ img .hero-avatar {
 	object-fit: contain;
 	display: block;
 	flex: 0 0 auto;
+	/*! filter: revert !important; */
 }
 
 .badge-new {
