@@ -108,7 +108,7 @@ function randomIndex(max) {
 function readDataset(span, key) {
 	switch (key) {
 		case "currentShortcode": return span.dataset.currentShortcode;
-		case "navState":         return span.dataset.navState;
+		case "stateHeader":         return span.dataset.stateHeader;
 		case "pendingShortcode": return span.dataset.pendingShortcode;
 		default:                 return undefined;
 	}
@@ -117,7 +117,7 @@ function readDataset(span, key) {
 function writeDataset(span, key, value) {
 	switch (key) {
 		case "currentShortcode": span.dataset.currentShortcode = value; break;
-		case "navState":         span.dataset.navState = value;         break;
+		case "stateHeader":         span.dataset.stateHeader = value;         break;
 		case "pendingShortcode": span.dataset.pendingShortcode = value; break;
 		default: break;
 	}
@@ -125,7 +125,7 @@ function writeDataset(span, key, value) {
 
 function normalizeCacheKey(key) {
 	switch (key) {
-		case "navState":
+		case "stateHeader":
 		case "pendingShortcode":
 			return key;
 		default:
@@ -134,7 +134,7 @@ function normalizeCacheKey(key) {
 }
 
 // Swap a shortcode into a span and re-run processIconSpans, guarding against
-// in-flight renders. Used by theme, locale, and nav toggle buttons.
+// in-flight renders. Used by theme, locale, and header toggle buttons.
 function renderShortcode(span, shortcode, opts = {}) {
 	const cacheKey = normalizeCacheKey(opts.cacheKey);
 
@@ -230,7 +230,7 @@ async function tryFetchIcon(span, iconId, token) {
 function processIconSpans(root = document) {
 	return (async () => {
 		const iconSpans = root.querySelectorAll(
-			".nav-link-icon, .res-icon, .social-icon, .theme-icon, .lang-icon, .toggle-icon"
+			".header-link-icon, .res-icon, .social-icon, .theme-icon, .lang-icon, .toggle-icon"
 		);
 
 		for (const span of iconSpans) {

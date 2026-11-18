@@ -19,7 +19,7 @@ function getTranslationTable() {
 let _safeTableCache = null;
 
 function getSafeTable() {
-	if (_safeTableCache) {
+	if (_safeTableCache !== null) {
 		return _safeTableCache;
 	}
 
@@ -77,13 +77,12 @@ function collectIndices(prefix, suffix, filterSection) {
 			continue;
 		}
 		const sectionNum = Number(m[1]);
-		const cardNum = m[2] !== undefined ? Number(m[2]) : undefined;
 
-		if (filterSection !== undefined && Number(m[1]) !== filterSection) {
+		if (filterSection !== undefined && sectionNum !== filterSection) {
 			continue;
 		}
 
-		idxs.add(cardNum !== undefined ? cardNum : sectionNum);
+		idxs.add(sectionNum);
 	}
 
 	return [...idxs].sort((a, b) => a - b);
@@ -238,14 +237,14 @@ function populateHeroTaglines() {
 // Resources page
 
 function getCardDateSec(map, base) {
-    const v = map.get(`${base}_date`);
-    if (v === undefined) {
+	const v = map.get(`${base}_date`);
+	if (v === undefined) {
 		return null;
 	}
 
-    const sec = Number(v);
+	const sec = Number(v);
 
-    return Number.isFinite(sec) && sec > 0 ? sec : null;
+	return Number.isFinite(sec) && sec > 0 ? sec : null;
 }
 
 function isCardNew(map, base, timeout = 7 * 24 * 60 * 60) {

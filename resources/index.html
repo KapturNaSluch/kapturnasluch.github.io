@@ -35,7 +35,15 @@
 		<link rel="stylesheet" href="../assets/code/css/main.css"/>
 	</head>
 	<body id="top">
-		<nav class="header"></nav>
+		<noscript>
+			<div class="noscript">
+				<h1>This site requires JavaScript to display content.</h1>
+				<br>
+				<p>Please enable JavaScript in your browser.</p>
+			</div>
+		</noscript>
+
+		<header class="header"></header>
 
 		<div class="page-header">
 			<h1 data-i18n="resources_page_title" style="text-decoration: capitalize"></h1>
@@ -58,7 +66,7 @@
 			document.addEventListener("DOMContentLoaded", () => {
 				loadComponent(".header", "../assets/code/html/header.html", "..", () => {
 					applyTranslations();
-					updateMobileNavIcon("closed");
+					updateMobileHeaderIcon("closed");
 				});
 				loadComponent(".footer", "../assets/code/html/footer.html", "..", applyTranslations);
 

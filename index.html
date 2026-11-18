@@ -25,17 +25,25 @@
 		<meta name="twitter:card" content="summary_large_image">
 		<meta name="twitter:title" content="KapturNaSłuch - Home Page">
 		<meta name="twitter:description" content="Content creator and audio enthusiast. Probably the most controversial sound-related creator on the Polish internet.">
-		<meta name="twitter:image" content="https://kapturnasluch.github.io/assets/resources/img/png/banners/banner_dark_global">
+		<meta name="twitter:image" content="https://kapturnasluch.github.io/assets/resources/img/png/banners/banner_dark_global.png">
 
 		<!-- Icons -->
-		<link rel="icon" type="image/svg" href="assets/resources/img/ico/favicon.ico"/>
+		<link rel="icon" type="image/x-icon" href="assets/resources/img/ico/favicon.ico"/>
 
 		<!-- CSS -->
 		<link rel="stylesheet" href="assets/code/css/global.css"/>
 		<link rel="stylesheet" href="assets/code/css/main.css"/>
 	</head>
 	<body id="top">
-		<nav class="header" style="background: initial; position: fixed; border: initial; filter: initial"></nav>
+		<noscript>
+			<div class="noscript">
+				<h1>This site requires JavaScript to display content.</h1>
+				<br>
+				<p>Please enable JavaScript in your browser.</p>
+			</div>
+		</noscript>
+
+		<header class="header" style="background: initial; position: fixed; border: initial; filter: initial"></header>
 
 		<main>
 			<section class="hero">
@@ -51,11 +59,11 @@
 				</div>
 				<p class="hero-taglines"></p>
 				<p class="hero-desc" data-i18n="hero_desc"></p>
-				<a href="#bottom" class="btn-primary" data-i18n="hero_cta"></a>
+				<a href="#social" class="btn-primary" data-i18n="hero_cta"></a>
 			</section>
 		</main>
 
-		<footer id="bottom" class="footer"></footer>
+		<footer id="social" class="footer"></footer>
 
 		<div class="background">
 			<div class="background-media">
@@ -82,7 +90,7 @@
 			document.addEventListener("DOMContentLoaded", () => {
 				loadComponent(".header", "assets/code/html/header.html", "", () => {
 					applyTranslations();
-					updateMobileNavIcon("closed");
+					updateMobileHeaderIcon("closed");
 				});
 				loadComponent(".footer", "assets/code/html/footer.html", "", applyTranslations);
 

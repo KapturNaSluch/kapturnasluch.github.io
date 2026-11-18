@@ -26,7 +26,7 @@
 		saturate(2476%) hue-rotate(317deg)
 		brightness(118%) contrast(119%);
 
-	--height-navigation: 100px;
+	--height-header: 100px;
 }
 
 [data-theme="dark"] {
@@ -70,7 +70,6 @@
 *,
 *::before,
 *::after {
-	scroll-behavior: smooth;
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
@@ -94,13 +93,14 @@
 	to  { filter: hue-rotate(1turn);  }
 }
 
-html[data-theme="light"] {
-  background: #FFF;
+html {
+	scroll-behavior: smooth;
+	background: #000;
+	scroll-padding-top: var(--height-header);
 }
 
-html {
-	background: #000;
-	scroll-padding-top: var(--height-navigation);
+html[data-theme="light"] {
+	background: #FFF;
 }
 
 body {
@@ -111,6 +111,26 @@ body {
 	min-height: 100vh;
 	display: flex;
 	flex-flow: column;
+}
+
+.noscript {
+	position: fixed;
+	inset: 0;
+	padding: 2em;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-flow: column;
+
+	color: #FFF;
+	background: #500;
+
+	font-size: 1em;
+	font-family: sans-serif;
+	text-align: center;
+
+	z-index: 9999;
 }
 
 /* ===== */

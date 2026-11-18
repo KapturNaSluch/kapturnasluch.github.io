@@ -139,47 +139,47 @@ function replaceInFragment(node, search, replacement) {
 	});
 }
 
-// Mobile nav - morphing toggle icon, outside-click, resize reset
+// Mobile header - morphing toggle icon, outside-click, resize reset
 
-const NAV_ICONS = {
+const ICONS_HEADER = {
 	closed:  "line-md:menu|(≡)",
 	opening: "line-md:menu-to-close-transition|(✕)",
 	closing: "line-md:close-to-menu-transition|(≡)"
 };
 
-function navIconFor(state) {
+function headerIconFor(state) {
 	if (state === "closed") {
-		return NAV_ICONS.closed;
+		return ICONS_HEADER.closed;
 	}
 
 	if (state === "opening") {
-		return NAV_ICONS.opening;
+		return ICONS_HEADER.opening;
 	}
 
 	if (state === "closing") {
-		return NAV_ICONS.closing;
+		return ICONS_HEADER.closing;
 	}
 
 	return null;
 }
 
-function updateMobileNavIcon(state) {
-	const btn = document.querySelector(".nav-toggle-btn");
+function updateMobileHeaderIcon(state) {
+	const btn = document.querySelector(".header-toggle-btn");
 	if (!btn) {
 		return;
 	}
 
 	const span = btn.querySelector(".toggle-icon") || btn;
-	const shortcode = navIconFor(state);
+	const shortcode = headerIconFor(state);
 	if (!shortcode) {
 		return;
 	}
 
-	if (span.dataset.navState === state) {
+	if (span.dataset.stateHeader === state) {
 		return;
 	}
 
-	span.dataset.navState = state;
+	span.dataset.stateHeader = state;
 	span.dataset.pendingShortcode = shortcode;
 	span.classList.add("is-loading");
 
@@ -199,14 +199,14 @@ function updateMobileNavIcon(state) {
 		.finally(() => span.classList.remove("is-loading"));
 }
 
-window.updateMobileNavIcon = updateMobileNavIcon;
+window.updateMobileHeaderIcon = updateMobileHeaderIcon;
 
-window.toggleMobileNav = function (event) {
+window.toggleMobileHeader = function (event) {
 	if (event && typeof event.stopPropagation === "function") {
 		event.stopPropagation();
 	}
 
-	const controls = document.getElementsByClassName("nav-controls")[0];
+	const controls = document.getElementsByClassName("header-controls")[0];
 	if (!controls) {
 		return;
 	}
@@ -214,24 +214,24 @@ window.toggleMobileNav = function (event) {
 	const willOpen = !controls.classList.contains("active");
 	controls.classList.toggle("active");
 
-	updateMobileNavIcon(willOpen ? "opening" : "closing");
+	updateMobileHeaderIcon(willOpen ? "opening" : "closing");
 };
 
-function closeMobileNav() {
-	const controls = document.getElementsByClassName("nav-controls")[0];
+function closeMobileHeader() {
+	const controls = document.getElementsByClassName("header-controls")[0];
 	if (!controls || !controls.classList.contains("active")) {
 		return;
 	}
 
 	controls.classList.remove("active");
-	updateMobileNavIcon("closing");
+	updateMobileHeaderIcon("closing");
 }
 
 // Close the mobile menu
 document.addEventListener("click", (e) => {
-	const nav = document.querySelector("nav");
-	const controls = document.querySelector(".nav-controls");
-	if (!nav || !controls) {
+	const header = document.querySelector("header");
+	const controls = document.querySelector(".header-controls");
+	if (!header || !controls) {
 		return;
 	}
 
@@ -240,32 +240,32 @@ document.addEventListener("click", (e) => {
 	}
 
 	// composedPath() is a snapshot taken at dispatch time, so it still
-	// contains the nav even if the icon swap detached e.target.
+	// contains the header even if the icon swap detached e.target.
 	const path = typeof e.composedPath === "function" ? e.composedPath() : [];
-	if (path.includes(nav) || nav.contains(e.target)) {
+	if (path.includes(header) || header.contains(e.target)) {
 		return;
 	}
 
-	closeMobileNav();
+	closeMobileHeader();
 });
 
 // Reset state when the viewport crosses the desktop breakpoint
-let _navResizeRaf = null;
+let _headerResizeRaf = null;
 window.addEventListener("resize", () => {
-	if (_navResizeRaf) {
+	if (_headerResizeRaf) {
 		return;
 	}
 
-	_navResizeRaf = requestAnimationFrame(() => {
-		_navResizeRaf = null;
+	_headerResizeRaf = requestAnimationFrame(() => {
+		_headerResizeRaf = null;
 	
 		if (window.innerWidth > 750) {
-			const controls = document.querySelector(".nav-controls");
+			const controls = document.querySelector(".header-controls");
 			if (controls) {
 				controls.classList.remove("active");
 			}
 
-		updateMobileNavIcon("closed");
+		updateMobileHeaderIcon("closed");
 		}
 	});
 });
@@ -283,10 +283,10 @@ function rescrollToHash({ smooth = false } = {}) {
 		return;
 	}
 
-	const navH = document.querySelector("nav")?.getBoundingClientRect().height || 0;
+	const headerH = document.querySelector("header")?.getBoundingClientRect().height || 0;
 
 	window.scrollTo({
-		top: el.getBoundingClientRect().top + window.scrollY - navH,
+		top: el.getBoundingClientRect().top + window.scrollY - headerH,
 		behavior: smooth ? "smooth" : "instant",
 	});
 }
