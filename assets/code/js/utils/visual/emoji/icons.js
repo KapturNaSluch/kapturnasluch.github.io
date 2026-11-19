@@ -272,6 +272,8 @@ function processIconSpans(root = document) {
 				if (!success) {
 					span.textContent = raw;
 				}
+
+				span.classList.remove("is-loading");
 			} catch (err) {
 				console.error("processIconSpans:", err);
 			}
