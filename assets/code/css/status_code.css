@@ -1,0 +1,74 @@
+.res-icon {
+	height: revert;
+}
+
+/* --- */
+
+.status-page {
+	display: flex;
+	flex-flow: row;
+	align-self: center;
+	align-items: stretch;
+	justify-content: center;
+
+	width: fit-content;
+
+	text-align: center;
+
+	gap: 2em;
+}
+
+.status-icon {
+	display: flex;
+	font-size: 12em;
+	line-height: 1;
+	align-items: center;
+}
+
+.res-icon g {
+	stroke: red;
+}
+
+.status-content {
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	align-items: center;
+	width: fit-content;
+	gap: 0.1875em;
+}
+
+.status-code {
+	font-size: 4em;
+}
+
+.status-code,
+.status-name {
+	text-align: center;
+	line-height: 1.25;
+}
+
+.status-desc {
+	padding: 2em 0;
+}
+
+@media (max-width: 750px) {
+	.status-page {
+		width: fit-content;
+		flex-flow: column;
+		gap: 1em;
+	}
+
+	.status-icon {
+		width: fit-content;
+		align-self: center;
+	}
+
+	.status-desc {
+		max-width: 100%;
+	}
+
+	.status-content {
+		gap: 0.325em;
+	}
+}

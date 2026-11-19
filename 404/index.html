@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" data-i18n-scope="404">
+	<head>
+		<!-- Meta -->
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+		<!-- Theme Color -->
+		<meta name="theme-color" content="#FF0000" media="(prefers-color-scheme: light)">
+		<meta name="theme-color" content="#FF0000" media="(prefers-color-scheme: dark)">
+
+		<!-- Primary Meta Tags -->
+		<title>KapturNaSłuch</title>
+		<meta name="description" content="Page not found.">
+		<meta name="robots" content="noindex">
+
+		<!-- Icons -->
+		<link rel="icon" type="image/x-icon" href="../assets/resources/img/ico/favicon.ico"/>
+
+		<!-- CSS -->
+		<link rel="stylesheet" href="../assets/code/css/global.css"/>
+		<link rel="stylesheet" href="../assets/code/css/main.css"/>
+		<link rel="stylesheet" href="../assets/code/css/status_code.css"/>
+	</head>
+	<body id="top">
+		<noscript>
+			<div class="noscript">
+				<h1>This site requires JavaScript to display content.</h1>
+				<br>
+				<p>Please enable JavaScript in your browser.</p>
+			</div>
+		</noscript>
+
+		<!-- AFTER -->
+		<main class="content">
+			<div class="status-page">
+				<div class="status-icon">
+					<span class="res-icon"></span>
+				</div>
+
+				<div class="status-content">
+					<h1 class="status-code"></h1>
+					<h2 class="status-name" data-i18n="sc_name"></h2>
+					<div class="status-desc"></div>
+
+					<a href="/" class="btn-primary capitalized" data-i18n="nav_home"></a>
+				</div>
+			</div>
+		</main>
+
+		<script src="../assets/code/js/utils/utils.js"></script>
+		<script src="../assets/code/js/utils/visual/emoji/emoji.js"></script>
+		<script src="../assets/code/js/locale/i18n.js"></script>
+		<script src="../assets/code/js/locale/locale.js"></script>
+		<script src="../assets/code/js/utils/visual/emoji/icons.js"></script>
+		<script src="../assets/code/js/utils/visual/theme.js"></script>
+		<script src="../assets/code/js/utils/components.js"></script>
+		<script src="../assets/code/js/page/populate.js"></script>
+		<script>
+			document.addEventListener("DOMContentLoaded", () => {
+				populatePageStatusCode();
+			});
+		</script>
+	</body>
+</html>

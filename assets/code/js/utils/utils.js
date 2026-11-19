@@ -41,6 +41,30 @@ function resolveSlug() {
 	return last || "home";
 }
 
+function resolveStatusCode() {
+	const meta = document.querySelector('meta[name="status-code"]');
+	if (meta?.content && /^\d{3}$/.test(meta.content.trim())) {
+		return meta.content.trim();
+	}
+
+	const attr = document.documentElement.getAttribute("data-status-code");
+	if (attr && /^\d{3}$/.test(attr.trim())) {
+		return attr.trim();
+	}
+
+	if (typeof window.__STATUS_CODE__ !== "undefined") {
+		return String(window.__STATUS_CODE__);
+	}
+
+	const m = location.pathname.match(/(?:^|\/)([1-5]\d{2})(?:\/|\.|$)/)
+		|| location.search.match(/[?&]status=([1-5]\d{2})\b/);
+	if (m) {
+		return m[1];
+	}
+
+	return "404";
+}
+
 function titleKeyFor(slug) {
 	return (slug === "home" || slug === "index")
 		? "index_page_title"

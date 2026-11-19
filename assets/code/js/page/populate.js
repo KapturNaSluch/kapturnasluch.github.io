@@ -1,5 +1,5 @@
 // Resources + About page builder
-/* global currentScope, translate */
+/* global currentScope, translate, resolveStatusCode */
 
 // Translation table access
 
@@ -44,10 +44,10 @@ function resetSafeTable() {
 	_safeTableCache = null;
 }
 
-const SAFE_KEY_RE = /^[A-Za-z0-9_]+$/;
+const RE_KEY_SAFE = /^[A-Za-z0-9_]+$/;
 
 function safeGet(map, key) {
-	if (typeof key !== "string" || !SAFE_KEY_RE.test(key)) {
+	if (typeof key !== "string" || !RE_KEY_SAFE.test(key)) {
 		return "";
 	}
 
@@ -435,6 +435,60 @@ function populatePageAbout() {
 	finalize(main);
 }
 
+// Status code page
+
+function populatePageStatusCode() {
+	const main = document.querySelector("main.content");
+	if (!main) {
+		return;
+	}
+
+	const wrapper = main.querySelector(".status-page");
+	if (!wrapper) {
+		return;
+	}
+
+	const codeEl = wrapper.querySelector(".status-code");
+	if (codeEl) {
+		codeEl.textContent = String(resolveStatusCode());
+	}
+
+	const iconSpan = wrapper.querySelector(".status-icon .res-icon");
+	if (iconSpan) {
+		const shortcode = translate("sc_image");
+		if (shortcode) {
+			iconSpan.dataset.iconShortcode = shortcode;
+		}
+	}
+
+	const descBlock = wrapper.querySelector(".status-desc");
+	if (descBlock) {
+		const table = getTranslationTable();
+		const descKeys = Object.keys(table)
+			.filter(k => /^sc_desc_\d+$/.test(k))
+			.sort((a, b) => {
+				const n = s => parseInt(s.replace("sc_desc_", ""), 10);
+				return n(a) - n(b);
+			});
+
+		descBlock.replaceChildren(
+			...descKeys.map(key => {
+				const span = document.createElement("span");
+				span.className = "status-desc-entry";
+				span.setAttribute("data-i18n", key);
+				const v = translate(key);
+				if (v) {
+					span.textContent = v;
+				}
+				return span;
+			})
+		);
+	}
+
+	finalize(main);
+	setDocumentTitle();
+}
+
 // Bootstrap
 
 function getBuilder(scope) {
@@ -446,7 +500,7 @@ function getBuilder(scope) {
 		return populatePageAbout;
 	}
 
-	return null;
+	return populatePageStatusCode;
 }
 
 function populatePage() {

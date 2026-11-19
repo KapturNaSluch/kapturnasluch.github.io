@@ -292,4 +292,6 @@ window.addEventListener("storage", (e) => {
 
 let _localeReady = null;
 window.localeReady = () => (_localeReady ??= initLocale());
-document.addEventListener("DOMContentLoaded", () => { window.localeReady(); });
+document.addEventListener("DOMContentLoaded", () => {
+	window.localeReady();
+});

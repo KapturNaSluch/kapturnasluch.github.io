@@ -2,8 +2,8 @@
 
 [data-no-transition],
 [data-no-transition] * {
-	transition: none !important;
 	animation: none !important;
+	transition: none !important;
 }
 
 /* ===== */
@@ -94,8 +94,9 @@
 }
 
 html {
-	scroll-behavior: smooth;
 	background: #000;
+
+	scroll-behavior: smooth;
 	scroll-padding-top: var(--height-header);
 }
 
@@ -104,24 +105,29 @@ html[data-theme="light"] {
 }
 
 body {
-	color: var(--color-text-default);
-	font-family: "Inter", sans-serif;
-	font-size: 16px;
-	line-height: 1.6;
-	min-height: 100vh;
 	display: flex;
 	flex-flow: column;
+
+	min-height: 100vh;
+
+	color: var(--color-text-default);
+
+	font-size: 16px;
+	font-family: "Inter", sans-serif;
+
+	line-height: 1.6;
 }
 
 .noscript {
 	position: fixed;
 	inset: 0;
-	padding: 2em;
 
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-flow: column;
+
+	padding: 2em;
 
 	color: #FFF;
 	background: #500;
@@ -138,20 +144,28 @@ body {
 /* ===== */
 
 .blockquote {
-	border-left: 0.25em solid var(--color-text-default);
-	font-style: italic;
-	text-indent: initial;
-	padding: 1.25em;
-	text-align: left;
 	display: flex;
 	flex-flow: column;
 	gap: 2em;
-	opacity: 0.8;
+
+	padding: 1.25em;
+
+	border-left: 0.25em solid var(--color-text-default);
+	font-style: italic;
+
+	text-align: left;
+	text-indent: initial;
+
+	opacity: 0.825;
 }
 
 .blockquote span:nth-child(2):last-child {
 	display: block;
 	text-align: right;
+}
+
+.capitalized {
+	text-transform: capitalize;
 }
 
 /* ===== */
